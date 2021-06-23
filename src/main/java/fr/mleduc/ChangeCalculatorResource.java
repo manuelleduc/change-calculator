@@ -19,7 +19,7 @@ public class ChangeCalculatorResource
     ChangeService changeService;
 
     @PUT
-    @Timeout(100)
+    @Timeout(2000)
     public Optional<ChangeResult> change(ChangeRequest changeRequest)
     {
         List<Stock> stocks = changeRequest.stocks;
