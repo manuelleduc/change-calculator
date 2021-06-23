@@ -1,20 +1,34 @@
 package fr.mleduc;
 
+import java.util.List;
+import java.util.Optional;
+
 import javax.inject.Inject;
-import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.eclipse.microprofile.faulttolerance.Timeout;
+
 @Path("/change")
 @Produces(MediaType.APPLICATION_JSON)
-public class ChangeCalculatorResource {
-
+public class ChangeCalculatorResource
+{
     @Inject
     ChangeService changeService;
 
-    @GET
-    public ChangeResult change() {
-        return changeService.compute(3400, new Stock("manu", 925, 10), new Stock("flora", 750, 10));
+    @PUT
+    @Timeout(100)
+    public Optional<ChangeResult> change(ChangeRequest changeRequest)
+    {
+        List<Stock> stocks = changeRequest.stocks;
+        if (stocks.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Stock stock0 = stocks.remove(0);
+        Stock[] stocks1 = stocks.toArray(new Stock[0]);
+        return Optional.of(changeService.compute(changeRequest.total, stock0, stocks1));
     }
 }

@@ -1,42 +1,28 @@
 package fr.mleduc;
 
-public class ChangeResult {
+import java.util.List;
+import java.util.Map;
 
-    private double change;
-    private int quantityA;
-    private int quantityB;
+public class ChangeResult
+{
+    private final Map<String, Integer> quantities;
 
-    public ChangeResult() {
-    }
+    private final double change;
 
-    public ChangeResult(double change, int quantityA, int quantityB) {
+    public ChangeResult(double change, Map<String, Integer> quantities)
+    {
 
         this.change = change;
-        this.quantityA = quantityA;
-        this.quantityB = quantityB;
+        this.quantities = quantities;
     }
 
-    public double getChange() {
+    public double getChange()
+    {
         return change;
     }
 
-    public void setChange(double change) {
-        this.change = change;
-    }
-
-    public int getQuantityA() {
-        return quantityA;
-    }
-
-    public void setQuantityA(int quantityA) {
-        this.quantityA = quantityA;
-    }
-
-    public int getQuantityB() {
-        return quantityB;
-    }
-
-    public void setQuantityB(int quantityB) {
-        this.quantityB = quantityB;
+    public Map<String, Integer> getQuantities()
+    {
+        return quantities;
     }
 }

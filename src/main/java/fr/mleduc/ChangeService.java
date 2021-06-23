@@ -1,39 +1,52 @@
 package fr.mleduc;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import javax.enterprise.context.ApplicationScoped;
+
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.variables.IntVar;
 
-import javax.enterprise.context.ApplicationScoped;
-import java.util.stream.IntStream;
-
 @ApplicationScoped
-public class ChangeService {
-    public ChangeResult compute(int total, Stock stockA, Stock stockB) {
-        var model = new Model("my first problem");
+public class ChangeService
+{
+    public ChangeResult compute(int total, Stock stock0, Stock... stocks)
+    {
+        var model = new Model("the change problem");
 
-        var x = initVar(model, stockA);
-        var y = initVar(model, stockB);
-        model.arithm(x, "+", y, "<=", total).post();
+        Map<Stock, IntVar> collection = new HashMap<>();
+        var add = initVar(model, stock0);
+        collection.put(stock0, add);
+        for (Stock stock : stocks) {
+            IntVar y = initVar(model, stock);
+            collection.put(stock, y);
+            add = add.add(y).intVar();
+        }
+        model.arithm(add.intVar(), "<=", total).post();
         var solver = model.getSolver();
         var change = Double.MAX_VALUE;
-        var quantityA = 0;
-        var quantityB = 0;
+        Map<String, Integer> collect = new HashMap<>();
         while (solver.solve()) {
-            var tmpA = x.getValue();
-            var tmpB = y.getValue();
-            var restTmp = (total - tmpA - tmpB) / 100.0;
+            Integer finalSum = collection.values().stream().map(IntVar::getValue).reduce(Integer::sum).orElse(0);
+
+            var restTmp = (total - finalSum);
             if (restTmp < change) {
                 change = restTmp;
-                quantityA = tmpA / stockA.value;
-                quantityB = tmpB / stockB.value;
+                collect = collection.entrySet()
+                    .stream()
+                    .collect(
+                        Collectors.toMap(it -> it.getKey().name, it -> it.getValue().getValue() / it.getKey().value));
             }
         }
-        // System.out.println("rest = " + change + " euros + " + quantityA + " tickets Manu + " + quantityB + " tickets Flora");
-
-        return new ChangeResult(change, quantityA, quantityB);
+        return new ChangeResult(change, collect);
     }
 
-    private IntVar initVar(Model model, Stock stock) {
-        return model.intVar(stock.name, IntStream.range(0, stock.quantity).map(i -> i * stock.value).boxed().mapToInt(i -> i).toArray());
+    private IntVar initVar(Model model, Stock stock)
+    {
+        return model.intVar(stock.name,
+            IntStream.range(0, stock.quantity + 1).map(i -> i * stock.value).boxed().mapToInt(i -> i).toArray());
     }
 }
