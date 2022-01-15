@@ -1,5 +1,8 @@
 {
   "name": "webapp",
+  "engines": {
+    "npm": "8.1.2"
+  },
   "version": "0.1.0",
   "private": true,
   "scripts": {
