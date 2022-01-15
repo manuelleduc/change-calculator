@@ -1,8 +1,5 @@
 {
   "extends": [
     "config:base"
-  ],
-  "engines": {
-    "npm": "8.1.2"
-  }
+  ]
 }
