@@ -14,8 +14,9 @@
   },
   "dependencies": {
     "core-js": "3.20.3",
-    "vue": "2.6.14",
-    "vue-resource": "1.5.3"
+    "vue": "3.2.28",
+    "@vue/compat": "3.2.28",
+    "axios": "0.25.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "4.5.15",
@@ -24,7 +25,7 @@
     "babel-eslint": "10.1.0",
     "eslint": "6.8.0",
     "eslint-plugin-vue": "6.2.2",
-    "vue-template-compiler": "2.6.14"
+    "@vue/compiler-sfc": "3.2.28"
   },
   "eslintConfig": {
     "root": true,

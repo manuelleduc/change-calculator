@@ -28,6 +28,8 @@
 <script>
 import PersonSubForm from "@/components/PersonSubForm";
 
+const axios = require('axios');
+
 export default {
   name: "ChangeForm",
   components: {PersonSubForm},
@@ -62,7 +64,7 @@ export default {
       this.waiting = true;
       this.error = false;
       this.result = undefined
-      this.$http.put('/change', {
+      axios.put('/change', {
         "stocks": this.persons.map(person => ({
           "name": person.name,
           "quantity": person.quantity,
@@ -71,8 +73,8 @@ export default {
         "total": Math.round(this.amount * 100)
       }).then(response => {
         this.waiting = false;
-        this.result = response.body
-      }, () => {
+        this.result = response.data
+      }).catch(() => {
         this.waiting = false;
         this.error = true;
       })
