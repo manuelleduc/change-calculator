@@ -1,29 +1,26 @@
 package fr.mleduc;
 
-import java.util.List;
-import java.util.Optional;
+import org.eclipse.microprofile.faulttolerance.Timeout;
 
 import javax.inject.Inject;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
-import org.eclipse.microprofile.faulttolerance.Timeout;
+import java.util.List;
+import java.util.Optional;
 
 @Path("/change")
 @Produces(MediaType.APPLICATION_JSON)
-public class ChangeCalculatorResource
-{
+public class ChangeCalculatorResource {
     @Inject
     ChangeService changeService;
 
     @PUT
     @Timeout(2000)
-    public Optional<ChangeResult> change(ChangeRequest changeRequest)
-    {
+    public Optional<ChangeResult> change(ChangeRequest changeRequest) {
         List<Stock> stocks = changeRequest.stocks;
-        if (stocks.isEmpty()) {
+        if (stocks == null || stocks.isEmpty()) {
             return Optional.empty();
         }
 

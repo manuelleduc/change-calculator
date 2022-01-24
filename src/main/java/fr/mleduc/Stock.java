@@ -1,5 +1,7 @@
 package fr.mleduc;
 
+import java.util.Objects;
+
 public class Stock {
     String name;
     int value;
@@ -33,5 +35,18 @@ public class Stock {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Stock stock = (Stock) o;
+        return value == stock.value && quantity == stock.quantity && name.equals(stock.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, value, quantity);
     }
 }
