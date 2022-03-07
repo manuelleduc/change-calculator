@@ -19,11 +19,11 @@ class ChangeCalculatorResourceTest {
 
     @Test
     void change() {
-        final ChangeRequest changeRequest = new ChangeRequest();
-        final Stock stockManuel = new Stock("manuel", 1, 1);
+        final var changeRequest = new ChangeRequest();
+        final var stockManuel = new Stock("manuel", 1, 1);
         changeRequest.stocks = List.of(stockManuel);
         changeRequest.total = 2;
-        final ChangeResult changeResult = new ChangeResult(1, Collections.singletonMap("manuel", 1));
+        final var changeResult = new ChangeResult(1, Collections.singletonMap("manuel", 1));
 
         when(this.changeService.compute(2, stockManuel)).thenReturn(changeResult);
 
