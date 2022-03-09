@@ -13,5 +13,5 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "change-calculator"
+          heroku_app_name: "change-calculator-mleduc"
           heroku_email: "manuel.leduc@gmail.com"
