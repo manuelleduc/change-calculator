@@ -14,16 +14,16 @@
     "prod": "vue-cli-service build --dest ../resources/META-INF/resources/"
   },
   "dependencies": {
-    "@vue/compat": "3.2.31",
+    "@vue/compat": "3.2.37",
     "axios": "0.26.1",
     "core-js": "3.21.1",
-    "vue": "3.2.31"
+    "vue": "3.2.37"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "4.5.17",
-    "@vue/cli-plugin-eslint": "4.5.17",
-    "@vue/cli-service": "4.5.17",
-    "@vue/compiler-sfc": "3.2.31",
+    "@vue/cli-plugin-babel": "4.5.18",
+    "@vue/cli-plugin-eslint": "4.5.18",
+    "@vue/cli-service": "4.5.18",
+    "@vue/compiler-sfc": "3.2.37",
     "babel-eslint": "10.1.0",
     "eslint": "6.8.0",
     "eslint-plugin-vue": "6.2.2"
